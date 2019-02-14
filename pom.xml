@@ -9,26 +9,34 @@
 	<name>loja Maven Webapp</name>
 
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
+		<!-- RESTful Web Services -->
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>2.1.1</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
+		<!-- ClientHttp -->
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
 			<version>2.25.1</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+		<!-- XML -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>1.4.11.1</version>
 		</dependency>
+		
+		<!-- Servidor -->
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-grizzly2-http</artifactId>
+			<version>2.25.1</version>
+		</dependency>
+
 
 	</dependencies>
 
