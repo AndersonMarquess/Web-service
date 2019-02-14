@@ -1,5 +1,7 @@
 package com.andersonmarques.loja.model;
 
+import com.thoughtworks.xstream.XStream;
+
 public class Projeto {
 
 	private Long id;
@@ -25,5 +27,9 @@ public class Projeto {
 	}
 	public int getAnoInicio() {
 		return anoInicio;
+	}
+
+	public String toXML() {
+		return new XStream().toXML(this);
 	}
 }
