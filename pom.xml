@@ -15,12 +15,19 @@
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>2.1.1</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
 		<dependency>
-		    <groupId>org.glassfish.jersey.core</groupId>
-		    <artifactId>jersey-client</artifactId>
-		    <version>2.25.1</version>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>2.25.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.11.1</version>
 		</dependency>
 
 	</dependencies>
