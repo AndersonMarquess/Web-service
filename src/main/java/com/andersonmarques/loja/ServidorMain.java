@@ -10,12 +10,17 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class ServidorMain {
 	
 	public static void main(String[] args) throws IOException {
+		HttpServer server = subirServidor();
+		System.out.println("Servidor rodando - aperte qualquer tecla para desligar.");
+		System.in.read();
+		server.shutdown();
+	}
+
+	public static HttpServer subirServidor() {
 		URI uriRaiz = URI.create("http://localhost:8080/");
 		/*Configura o grizzly para buscar os recursos como jax-rs e o utiliza como serviço*/
 		ResourceConfig config = new ResourceConfig().packages("com.andersonmarques.loja");
 		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uriRaiz, config);
-		System.out.println("Servidor rodando - aperte qualquer tecla para desligar.");
-		System.in.read();
-		server.shutdown();
+		return server;
 	}
 }

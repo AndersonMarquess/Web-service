@@ -6,9 +6,25 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ProjetoTest {
+
+	private HttpServer servidor;
+
+	@Before
+	public void subirServidorProjeto() {
+		servidor = ServidorMain.subirServidor();
+	}
+
+	@After
+	public void desligarServidorProjeto() {
+		if (servidor.isStarted())
+			servidor.shutdown();
+	}
 
 	@Test
 	public void recuperaProjetoComSucesso() {
