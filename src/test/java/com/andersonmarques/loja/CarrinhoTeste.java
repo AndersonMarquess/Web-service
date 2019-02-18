@@ -1,6 +1,7 @@
 package com.andersonmarques.loja;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.ws.rs.NotFoundException;
@@ -23,10 +24,14 @@ import com.thoughtworks.xstream.XStream;
 public class CarrinhoTeste {
 
 	private HttpServer servidor;
+	private Client client;
+	private WebTarget targetRaiz;
 
 	@Before
 	public void subirServidor() {
 		servidor = ServidorMain.subirServidor("8081");
+		client = ClientBuilder.newClient();
+		targetRaiz = client.target("http://localhost:8081");;
 	}
 
 	@After
@@ -38,18 +43,12 @@ public class CarrinhoTeste {
 	@Test
 	public void lancaExecptionAoAcessarURLInexistente() {
 		assertThrows(NotFoundException.class, () -> {
-			Client client = ClientBuilder.newClient();
-				client.target("http://localhost:8081")
-					  .path("/urlInexistente")
-					  .request().get(String.class);
+				targetRaiz.path("/urlInexistente").request().get(String.class);
 		});
 	}
 	
 	@Test
 	public void recuperarCarrinhoPadraoNoServidorComSucesso() {
-		Client client = ClientBuilder.newClient();
-		WebTarget targetRaiz = client.target("http://localhost:8081");
-
 		/* Faz uma requisição get e retorna uma string */
 		String resultado = targetRaiz.path("/carrinho/1").request().get(String.class);
 		Carrinho carrinho = (Carrinho)new XStream().fromXML(resultado);
@@ -57,20 +56,44 @@ public class CarrinhoTeste {
 	}
 	
 	@Test
-	public void adicionarCarrinhoComSucesso() {
-		Client cliente = ClientBuilder.newClient();
+	public void adicionarCarrinhoRecebeStatusCode201FazGETNoEnderecoResposta() {
 		Carrinho carrinho = new Carrinho();
 	 	carrinho.adiciona(new Produto(314L, "Tablet", 999, 1));
         carrinho.setRua("Rua Vergueiro");
         carrinho.setCidade("Sao Paulo");
-        String xml = carrinho.toXML();
-        
+
         //Transforma a string em uma entity para fazer o post
-        Entity<String> entityXML = Entity.entity(xml, MediaType.APPLICATION_XML);
-		WebTarget target = cliente.target("http://localhost:8081");
-		Response resposta = target.path("/carrinho").request().post(entityXML);
-		
-		//Transforma o conteúdo da resposta em String
-		assertEquals("<status>sucesso</status>", resposta.readEntity(String.class));
+        Entity<String> entityXML = Entity.entity(carrinho.toXML(), MediaType.APPLICATION_XML);
+        
+        Response respostaPost = targetRaiz.path("/carrinho").request().post(entityXML);
+        
+        //Verifica o status code do request
+        assertEquals(201, respostaPost.getStatus());
+        
+        //Pega o endereço de resposta
+        String enderecoResposta = respostaPost.getHeaderString("Location");
+        String conteudoResposta = client.target(enderecoResposta).request().get(String.class);
+        assertTrue(conteudoResposta.contains("Tablet"));
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
