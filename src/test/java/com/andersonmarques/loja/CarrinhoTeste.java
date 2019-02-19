@@ -86,6 +86,21 @@ public class CarrinhoTeste {
 		Response resposta = targetRaiz.path("/carrinho/1/produto/" + idProduto).request().delete();
 		assertEquals(200, resposta.getStatus());
 	}
+	
+	@Test
+	public void atualizarRecursoComStatusCode200() {
+		String conteudoResposota = targetRaiz.path("/carrinho/1/").request().get(String.class);
+		Carrinho carrinho = (Carrinho) new XStream().fromXML(conteudoResposota);
+		
+		Produto produto = carrinho.getProdutos().stream().filter(p -> p.getQuantidade() >= 2).findFirst().get();
+		produto.setQuantidade(1);
+		
+		String produtoAtualizadoXML = new XStream().toXML(produto);
+		Entity<String> entity = Entity.entity(produtoAtualizadoXML, MediaType.APPLICATION_XML);
+		Response resposta = targetRaiz.path("/carrinho/1/produto/" + produto.getId()+"/quantidade").request().put(entity);
+		
+		assertEquals(200, resposta.getStatus());
+	}
 }
 
 
