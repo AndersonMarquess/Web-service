@@ -27,10 +27,10 @@ public class ProjetoTest {
 	@Before
 	public void subirServidorProjeto() {
 		servidor = ServidorMain.subirServidor("8081");
-		cliente = ClientBuilder.newClient();
+		cliente = ClientBuilder.newClient(ServidorMain.configurarClient(this.getClass().getName()));
 		alvoRaiz = cliente.target("http://localhost:8081");
 	}
-
+	
 	@After
 	public void desligarServidorProjeto() {
 		if (servidor.isStarted())

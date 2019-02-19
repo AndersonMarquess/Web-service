@@ -30,7 +30,7 @@ public class CarrinhoTeste {
 	@Before
 	public void subirServidor() {
 		servidor = ServidorMain.subirServidor("8081");
-		client = ClientBuilder.newClient();
+		client = ClientBuilder.newClient(ServidorMain.configurarClient(this.getClass().getName()));
 		targetRaiz = client.target("http://localhost:8081");;
 	}
 
