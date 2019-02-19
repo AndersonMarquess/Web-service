@@ -75,6 +75,17 @@ public class CarrinhoTeste {
         String conteudoResposta = client.target(enderecoResposta).request().get(String.class);
         assertTrue(conteudoResposta.contains("Tablet"));
 	}
+	
+	@Test
+	public void removerItemDoCarrinhoComStatusCode200() {
+		String carrinhoResposta = targetRaiz.path("/carrinho/1").request().get(String.class);
+		Carrinho carrinho = (Carrinho) new XStream().fromXML(carrinhoResposta);
+		
+		long idProduto = carrinho.getProdutos().stream().findFirst().get().getId();
+		
+		Response resposta = targetRaiz.path("/carrinho/1/produto/" + idProduto).request().delete();
+		assertEquals(200, resposta.getStatus());
+	}
 }
 
 
