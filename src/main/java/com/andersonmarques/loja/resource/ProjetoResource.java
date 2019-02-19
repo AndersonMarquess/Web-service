@@ -14,23 +14,21 @@ import javax.ws.rs.core.Response;
 
 import com.andersonmarques.loja.dao.ProjetoDAO;
 import com.andersonmarques.loja.model.Projeto;
-import com.thoughtworks.xstream.XStream;
 
 @Path("projeto")
 public class ProjetoResource {
 
 	@Path("{id}")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public String buscar(@PathParam("id") long id) {
+	@Produces(MediaType.APPLICATION_XML)
+	public Projeto buscar(@PathParam("id") long id) {
 		Projeto projeto = new ProjetoDAO().busca(id);
-		return projeto.toXML();
+		return projeto;
 	}
 	
 	@POST
     @Consumes(MediaType.APPLICATION_XML)
-    public Response adicionar(String conteudo) {
-        Projeto projeto = (Projeto) new XStream().fromXML(conteudo);
+    public Response adicionar(Projeto projeto) {
         new ProjetoDAO().adiciona(projeto);
         
         URI uri = URI.create("/projeto/"+projeto.getId());

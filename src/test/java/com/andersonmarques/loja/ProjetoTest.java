@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.andersonmarques.loja.model.Projeto;
-import com.thoughtworks.xstream.XStream;
 
 public class ProjetoTest {
 
@@ -38,17 +37,15 @@ public class ProjetoTest {
 	}
 
 	@Test
-	public void recuperaProjetoComSucesso() {
-		String resultado = alvoRaiz.path("/projeto/1").request().get(String.class);
-		Projeto projeto = (Projeto) new XStream().fromXML(resultado);
+	public void recuperaProjetoComSucessoSerializadoComJAXB() {
+		Projeto projeto = alvoRaiz.path("/projeto/1").request().get(Projeto.class);
 		assertEquals("Minha loja", projeto.getNome());
 	}
 	
 	@Test
 	public void adicionarProjetoComSucesso() {	
 		Projeto projeto = new Projeto(3l, "Estudo JAX-RS", 2019);
-		String xml = new XStream().toXML(projeto);
-		Entity<String> entityXML = Entity.entity(xml, MediaType.APPLICATION_XML);
+		Entity<Projeto> entityXML = Entity.entity(projeto, MediaType.APPLICATION_XML);
 		
 		Response resposta = alvoRaiz.path("/projeto").request().post(entityXML);
 		assertEquals(201, resposta.getStatus());
