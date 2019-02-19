@@ -57,4 +57,10 @@ public class ProjetoTest {
 		String conteudoRequest = cliente.target(enderecoResposta).request().get(String.class);
 		assertTrue(conteudoRequest.contains(projeto.getNome()));
 	}
+	
+	@Test
+	public void removerProjetoEReceberStatusCode200() {
+		Response resposta = alvoRaiz.path("projeto/1").request().delete();
+		assertEquals(200, resposta.getStatus());
+	}
 }

@@ -3,6 +3,7 @@ package com.andersonmarques.loja.resource;
 import java.net.URI;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -35,4 +36,11 @@ public class ProjetoResource {
         URI uri = URI.create("/projeto/"+projeto.getId());
 		return Response.created(uri).build();
     }
+	
+	@Path("{id}")
+	@DELETE
+	public Response remover(@PathParam("id") long id) {
+		new ProjetoDAO().remove(id);
+		return Response.ok().build();
+	}
 }
