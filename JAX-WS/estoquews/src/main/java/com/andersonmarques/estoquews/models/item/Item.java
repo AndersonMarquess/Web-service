@@ -1,5 +1,9 @@
 package com.andersonmarques.estoquews.models.item;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+// Boa prática recomendada pela especificação Java API for XML - Web service (JAX-WS)
+@XmlRootElement
 public class Item {
 
 	private String codigo;
