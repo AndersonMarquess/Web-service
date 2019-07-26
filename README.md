@@ -1,5 +1,8 @@
-﻿### Curso JAX-RS e Jersey Alura.
+﻿## Repositório dos cursos sobre criação e consumo de webservices.
 
-Todo conteúdo foi produzido durante as aulas.
+Com foco em melhorar meu conhecimento e conhecer novas tecnologias, resolvi aprender sobre o consumo e criação de serviços web.
 
-Professor(a): Guilherme Silveira.
+## Cursos:
+	1. JAX-RS e Jersey : Domine a criação de webservices REST - Alura.
+	2. JAX-WS : Domine a criação de webservices SOAP - Alura.
+
