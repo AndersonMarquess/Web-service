@@ -22,12 +22,12 @@ public class ServidorMain {
 	}
 
 	/**
-	 * @param porta na qual o servidor ser· iniciado. Ex: 8080
+	 * @param porta na qual o servidor ser√° iniciado. Ex: 8080
 	 * @return
 	 */
 	public static HttpServer subirServidor(String porta) {
 		URI uriRaiz = URI.create("http://localhost:"+porta+"/");
-		/*Configura o grizzly para buscar os recursos como jax-rs e o utiliza como serviÁo*/
+		/*Configura o grizzly para buscar os recursos como jax-rs e, o utiliza como servi√ßo*/
 		ResourceConfig config = new ResourceConfig().packages("com.andersonmarques.loja");
 		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uriRaiz, config);
 		return server;

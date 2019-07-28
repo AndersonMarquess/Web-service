@@ -2,7 +2,6 @@ package com.andersonmarques.loja;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
@@ -40,16 +39,14 @@ public class CarrinhoTeste {
 			servidor.shutdown();
 	}
 
-	@Test
+	@Test( expected = NotFoundException.class)
 	public void lancaExecptionAoAcessarURLInexistente() {
-		assertThrows(NotFoundException.class, () -> {
-				targetRaiz.path("/urlInexistente").request().get(String.class);
-		});
+		targetRaiz.path("/urlInexistente").request().get(String.class);
 	}
 	
 	@Test
 	public void recuperarCarrinhoPadraoNoServidorComSucesso() {
-		/* Faz uma requisição get e retorna uma string */
+		/* Faz uma requisiÃ§Ã£o get e retorna uma string */
 		String resultado = targetRaiz.path("/carrinho/1").request().get(String.class);
 		Carrinho carrinho = (Carrinho)new XStream().fromXML(resultado);
 		assertEquals("Rua Vergueiro 3185, 8 andar", carrinho.getRua());
@@ -60,7 +57,7 @@ public class CarrinhoTeste {
 		Carrinho carrinho = new Carrinho();
 	 	carrinho.adiciona(new Produto(314L, "Tablet", 999, 1));
         carrinho.setRua("Rua Vergueiro");
-        carrinho.setCidade("Sao Paulo");
+        carrinho.setCidade("SÃ£o Paulo");
 
         //Transforma a string em uma entity para fazer o post
         Entity<String> entityXML = Entity.entity(carrinho.toXML(), MediaType.APPLICATION_XML);
@@ -70,7 +67,7 @@ public class CarrinhoTeste {
         //Verifica o status code do request
         assertEquals(201, respostaPost.getStatus());
         
-        //Pega o endereço de resposta
+        //Pega o endereÃ§o da resposta
         String enderecoResposta = respostaPost.getHeaderString("Location");
         String conteudoResposta = client.target(enderecoResposta).request().get(String.class);
         assertTrue(conteudoResposta.contains("Tablet"));
