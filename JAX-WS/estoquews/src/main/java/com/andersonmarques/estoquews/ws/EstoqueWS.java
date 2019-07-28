@@ -15,6 +15,7 @@ import com.andersonmarques.estoquews.models.item.Filtro;
 import com.andersonmarques.estoquews.models.item.Filtros;
 import com.andersonmarques.estoquews.models.item.Item;
 import com.andersonmarques.estoquews.models.item.ItemDao;
+import com.andersonmarques.estoquews.models.item.ItemValidador;
 import com.andersonmarques.estoquews.models.usuario.TokenDao;
 import com.andersonmarques.estoquews.models.usuario.TokenUsuario;
 
@@ -50,6 +51,8 @@ public class EstoqueWS {
 		if (!isTokenValid) {
 			throw new AutenticacaoException("Erro de autenticação");
 		}
+
+		new ItemValidador(item).validate();
 
 		this.itemDAO.cadastrar(item);
 		return item;

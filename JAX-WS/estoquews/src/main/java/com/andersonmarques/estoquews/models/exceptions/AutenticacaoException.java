@@ -11,7 +11,7 @@ public class AutenticacaoException extends Exception {
 	}
 
 	// Retorna as informações no details da resposta.
-	public String getFaultInfo() {
-		return "Token inválido";
+	public InformacaoFault getFaultInfo() {
+		return new InformacaoFault("Token inválido");
 	}
 }

@@ -1,17 +1,26 @@
 package com.andersonmarques.estoquews.models.item;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-// Boa prática recomendada pela especificação Java API for XML - Web service (JAX-WS)
+// XmlRootElement => Boa prática, recomendada pela especificação do Java API for XML - Web service (JAX-WS)
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Item {
 
+	@XmlElement(required = true)
 	private String codigo;
+	@XmlElement(required = true)
 	private String nome;
+	@XmlElement(required = true)
 	private String tipo;
+	@XmlElement(required = true)
 	private int quantidade;
 
-	Item() {}
+	Item() {
+	}
 
 	public Item(String codigo, String nome, String tipo, int quantidade) {
 		super();
