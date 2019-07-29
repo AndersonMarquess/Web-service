@@ -14,6 +14,9 @@ public class App {
 	 * 
 	 * Descrição do serviço: http://localhost:8080/estoquews?wsdl
 	 * Detalhes da definição do xml: http://localhost:8080/estoquews?xsd
+	 * 
+	 * Para criar classes java com wsdl2java e o WildFly:
+	 * Dentro da pasta bin do wildfly: wsconsume.bat -k -n -o "c:\user\CaminhoDestino\" "c:\user\CaminhoOrigin\"
 	 */
 	public static void main(String[] args) {
 		publicarServicoEstoque();
