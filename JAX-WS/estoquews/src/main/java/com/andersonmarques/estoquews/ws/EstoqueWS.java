@@ -7,6 +7,10 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.ParameterStyle;
+import javax.jws.soap.SOAPBinding.Style;
+import javax.jws.soap.SOAPBinding.Use;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
@@ -19,8 +23,16 @@ import com.andersonmarques.estoquews.models.item.ItemValidador;
 import com.andersonmarques.estoquews.models.usuario.TokenDao;
 import com.andersonmarques.estoquews.models.usuario.TokenUsuario;
 
-/* Anotação para criar o serviço web */
+/* 
+ * @WebService: Anotação para criar o serviço web.
+ * @SOAPBinding: Define detalhes da mensagem SOAP.
+ *  
+ * Style: Remote procedure call(RPC) ou Document (Padrão).
+ * Use: "LITERAL" informa que a mensagem não irá definir tipos e "ENCODED" para que a mensagem e os tipos sejam enviados.
+ * ParameterStyle: "WRAPPED" se o request será feito com o nome da operação como involucro ou "BARE" caso contrario.
+ */
 @WebService
+@SOAPBinding(style = Style.DOCUMENT, use = Use.LITERAL, parameterStyle = ParameterStyle.WRAPPED) //Padrão
 public class EstoqueWS {
 
 	private ItemDao itemDAO = new ItemDao();
@@ -46,7 +58,7 @@ public class EstoqueWS {
 	public Item cadastrarItem(@WebParam(name = "token", header = true) TokenUsuario token,
 			@WebParam(name = "item") Item item) throws AutenticacaoException {
 		System.out.println("Cadastrando item: " + item + " Token:" + token);
-		
+
 		boolean isTokenValid = new TokenDao().ehValido(token);
 		if (!isTokenValid) {
 			throw new AutenticacaoException("Erro de autenticação");
