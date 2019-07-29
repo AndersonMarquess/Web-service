@@ -33,3 +33,5 @@
 /out/
 **/.vscode/
 **/build/**
+JAX-WS/estoquews-cliente/bin/**
+JAX-WS/estoquews-cliente/com/**
